@@ -16,7 +16,7 @@ class AppUrl{
     static courseAll = this.baseUrl + '/course-all';
     static course = this.baseUrl + '/course';
     static contact = this.baseUrl + '/contact';
-    static clientReview = this.baseUrl + '/clientReview';
+    static clientReview = this.baseUrl + '/client-review';
 
 }
 
