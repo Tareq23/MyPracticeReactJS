@@ -50,7 +50,6 @@ class AllCourses extends Component {
                     {/* <h2 className="serviceTitle">Our Courses</h2> */}
                     <Row>
                         {courseDataView}
-                        
                     </Row>
                 </Container>
             </Fragment>
