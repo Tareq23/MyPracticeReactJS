@@ -1,6 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { Col, Container,Row } from 'react-bootstrap';
 import { BarChart,Bar, ResponsiveContainer, XAxis,Tooltip } from 'recharts';
+import AppUrl from '../../restApi/AppUrl';
+import RestClient from '../../restApi/RestClient';
+
+import ReactHtmlParser from 'react-html-parser';
 
 class Analysis extends Component {
 
@@ -9,33 +13,23 @@ class Analysis extends Component {
         super();
         this.state = {
             data : [
-                {
-                    Technology:'Java',Projects : 100,
-                },
-                {
-                    Technology:'Kotlin',Projects : 82,
-                },
-                {
-                    Technology:'Bootstrap',Projects : 90,
-                },
-                {
-                    Technology:'Css',Projects : 100,
-                },
-                {
-                    Technology:'Phython',Projects : 70,
-                },
-                {
-                    Technology:'React',Projects : 90,
-                },
-                {
-                    Technology:'php',Projects : 85,
-                },
-                {
-                    Technology:'Laravel',Projects : 65,
-                }
-            ]
+               
+            ],
+            description:"",
         }
     }
+
+    componentDidMount()
+    {
+        RestClient.GetRequest(AppUrl.chartData).then(result=>{
+            this.setState({data:result});
+        })
+        RestClient.GetRequest(AppUrl.techDes).then(result=>{
+            this.setState({description:result[0]['tech_description']});
+        });
+    }
+
+
     render() {
         var blue = "rgba(0,115,230,0.7)";
         return (
@@ -49,9 +43,9 @@ class Analysis extends Component {
                             <ResponsiveContainer>
 
                             <BarChart width={100} height={300} data={this.state.data}>
-                                <XAxis dataKey="Technology" />
+                                <XAxis dataKey="technology" />
                                 <Tooltip/>
-                                <Bar dataKey="Projects" fill={blue}>
+                                <Bar dataKey="projects" fill={blue}>
 
                                 </Bar>
                             </BarChart>
@@ -59,7 +53,9 @@ class Analysis extends Component {
                         </Col>
                         <Col lg={6} md={12} sm={12}>
                             <p className="text-justify des">
-                            Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of  Finibus Bonorum et Malorum for use in a type specimen book.
+                            {
+                                ReactHtmlParser(this.state.description)
+                            }
                             </p>
                         </Col>
                     </Row>
