@@ -2,34 +2,51 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Component, Fragment } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
+import AppUrl from '../../restApi/AppUrl';
+import RestClient from '../../restApi/RestClient';
 
 class ContactSection extends Component {
+
+    contactInfo = () =>{
+        let name = document.getElementById('name').value;
+        let email = document.getElementById('email').value;
+        let message = document.getElementById('message').value;
+        
+        let jsonObject = {
+            name:name,
+            email:email,
+            message:message,
+        }
+        //alert(jsonObject.name + jsonObject.email + jsonObject.message);
+        RestClient.PostRequest(AppUrl.contact,jsonObject)
+                    .then(result=>{
+                        alert(result);
+                    })
+                    .catch(error=>{
+                        alert(error);
+                    });
+    }
+
     render() {
         return (
             <Fragment>
                 <Container className="mt-3">
                     <Row>
-                        
                         <Col lg={6} md={6} sm={12}>
                             <Form>
                                 <Form.Group >
                                     <Form.Label className="serviceDescription mb-2">Name</Form.Label>
-                                    <Form.Control type="text"  placeholder="Enter Your Name" />
+                                    <Form.Control id="name" type="text"  placeholder="Enter Your Name" />
                                 </Form.Group>
                                 <Form.Group >
                                     <Form.Label className="serviceDescription mb-2">Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" />
-                                    {/* <Form.Text className="text-muted">
-                                        We'll never share your email with anyone else.
-                                    </Form.Text> */}
+                                    <Form.Control id="email" type="email" placeholder="Enter email" />
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label className="serviceDescription mb-2">Message</Form.Label>
-                                    <Form.Control as="textarea" row={3} />
+                                    <Form.Control id="message" as="textarea" row={3} />
                                 </Form.Group>
-
-                               
-                                <Button variant="primary" type="submit">
+                                <Button onClick={this.contactInfo} variant="primary" >
                                     Submit
                                 </Button>
                             </Form>
