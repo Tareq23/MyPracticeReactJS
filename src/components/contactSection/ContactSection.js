@@ -18,7 +18,7 @@ class ContactSection extends Component {
             message:message,
         }
         //alert(jsonObject.name + jsonObject.email + jsonObject.message);
-        RestClient.PostRequest(AppUrl.contact,jsonObject)
+        RestClient.PostRequest(AppUrl.contact,JSON.stringify(jsonObject))
                     .then(result=>{
                         alert(result);
                     })

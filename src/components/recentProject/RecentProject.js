@@ -3,6 +3,7 @@ import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import Img from '../../assets/images/blogpost.jpg';
 import RestClient from '../../restApi/RestClient';
 import AppUrl from '../../restApi/AppUrl';
+import { Link } from 'react-router-dom';
 
 class RecentProject extends Component {
 
@@ -34,7 +35,7 @@ class RecentProject extends Component {
                                        result.project_description
                                    }
                                 </Card.Text>
-                                <Button variant="primary">Details</Button>
+                                <Button variant="primary"><Link className="linkStyle" to={"/project-details/"+result.id+"/"+result.project_name}>Details</Link></Button>
                             </Card.Body>
                         </Card>
                     </Col>

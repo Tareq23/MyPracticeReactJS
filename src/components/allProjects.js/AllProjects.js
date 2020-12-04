@@ -33,13 +33,12 @@ class AllProjects extends Component {
                                        result.project_description
                                    }
                                 </Card.Text>
-                                <Button variant="primary"><Link className="linkStyle" to="/project-details">Details</Link></Button>
+                            <Button variant="primary"><Link className="linkStyle" to={"/project-details/"+result.id+"/"+result.project_name}>Details</Link></Button>
                             </Card.Body>
                         </Card>
                     </Col>
         });
         return (
-            
             <Fragment>
                 <Container className="text-center mt-5">
                     {/* <h1>Recent Projects</h1> */}

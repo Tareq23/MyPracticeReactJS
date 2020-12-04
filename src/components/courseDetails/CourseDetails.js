@@ -2,9 +2,44 @@ import React, { Component, Fragment } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import BigPlayButton from 'video-react/lib/components/BigPlayButton';
 import Player from 'video-react/lib/components/Player';
+import ReactHtmlParser from 'react-html-parser';
 
 class CourseDetails extends Component {
+
+    constructor(props)
+    {
+        super(props);
+        
+
+    }
+    
+    
     render() {
+        let courseData = this.props.coursePassedData;
+
+        let totalLecture = "";
+        let totalStudent = "";
+        let longTitle = "";
+        let sortDes = "";
+        let videoUrl = "";
+        let longDes = "";
+        let smallImg = "";
+        let skillAll = "";
+        let sortTitle = "";
+        if(courseData.length==1)
+        {
+            //alert("yes");
+            totalLecture = courseData[0]['total_lecture'];
+            totalStudent = courseData[0]['total_student'];
+            longTitle = courseData[0]['long_title'];
+            sortDes = courseData[0]['sort_description'];
+            videoUrl = courseData[0]['video_url'];
+            longDes = courseData[0]['long_description'];
+            smallImg = courseData[0]['small_image'];
+            skillAll = courseData[0]['skill_all'];
+            sortTitle = courseData[0]['sort_title'];
+        }
+
         return (
             <Fragment>
                 
@@ -14,12 +49,16 @@ class CourseDetails extends Component {
                         <Container className="topPageContentCourse">
                             <Row>
                                 <Col  lg={6} md={6} sm={12} >
-                                    <h2 className="courseFullTitle">Total Dynamic Website with Admin Panel</h2>
-                                    <p className="courseSubTitle mb-0">Total Lecture: 30</p>
-                                    <p className="courseSubTitle mt-1">Total Student: 50</p>
+        <h2 className="courseFullTitle">{sortTitle}</h2>
+                                    <p className="courseSubTitle mb-0">Total Lecture: {totalLecture}</p>
+                                    <p className="courseSubTitle mt-1">Total Student: {totalStudent}</p>
                                 </Col>
                                 <Col lg={6} md={6} sm={12}>
-                                    <p className="serviceDescription mt-0" style={{color:"white"}}>Some quick example text to build on the card title and make up the bulk ofSome quick example text to build on the card title and make up the bulk ofSome quick example text to build on the card title and make</p>
+                                    <p className="serviceDescription mt-0" style={{color:"white"}}>
+                                        {
+                                            sortDes
+                                        }
+                                    </p>
                                 </Col>
                             </Row>
                         </Container>
@@ -30,26 +69,17 @@ class CourseDetails extends Component {
                     <Row>
                         <Col lg={6} md={6} sm={12}>
                             <h2>Skill You Get</h2>
-                            <ul>
-                                <li className="courseServiceDescription">Type of Skill that's you learn</li>
-                                <li className="courseServiceDescription">Type of Skill that's you learn</li>
-                                <li className="courseServiceDescription">Type of Skill that's you learn</li>
-                                <li className="courseServiceDescription">Type of Skill that's you learn</li>
-                                <li className="courseServiceDescription">Type of Skill that's you learn</li>
-                                <li className="courseServiceDescription">Type of Skill that's you learn</li>
-                                <li className="courseServiceDescription">Type of Skill that's you learn</li>
-                                <li className="courseServiceDescription">Type of Skill that's you learn</li>
-                                <li className="courseServiceDescription">Type of Skill that's you learn</li>
-                                <li className="courseServiceDescription">Type of Skill that's you learn</li>
-                                <li className="courseServiceDescription">Type of Skill that's you learn</li>
-                                <li className="courseServiceDescription">Type of Skill that's you learn</li>
-                            </ul>
+                            <div>
+                                {
+                                    ReactHtmlParser(skillAll)
+                                }
+                            </div>
                             <Button variant="primary">Buy Now</Button>
                         </Col>
                         <Col lg={6} md={6} sm={12}>
                             
                             <Player>
-                                <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4"/>
+                                <source src={videoUrl}/>
                                 <BigPlayButton position="center" />
                             </Player>
                         </Col>

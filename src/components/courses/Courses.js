@@ -35,7 +35,7 @@ class courses extends Component {
                                 }
                                 </p>
                                 
-                                <Link className="courseDetails float-left" to="/course-details">Details</Link>
+                                <Link className="courseDetails float-left" to={"/course-details/"+result.id}>Details</Link>
                             </Col>
                         </Row>
                     </Col>

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Img from '../../assets/images/blogpost.jpg';
 import AppUrl from '../../restApi/AppUrl';
 import RestClient from '../../restApi/RestClient';
@@ -38,7 +39,9 @@ class AllCourses extends Component {
                                     result.sort_description
                                 }
                                 </p>
-                                <a className="courseDetails float-left" href="#">Details</a>
+                                {/* <a className="courseDetails float-left" href="#">Details</a> */}
+                                
+                                <Link className="courseDetails float-left" to={"/course-details/"+result.id}>Details</Link>
                             </Col>
                         </Row>
                     </Col>
